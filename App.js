@@ -6,6 +6,7 @@ import { Button, FlatList, ScrollView } from 'react-native-web';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getLivros } from './service/livrosService';
+import AsyncStorage from '@react-native-async-storage/async-storage';s
 
 
 export default function App() {
