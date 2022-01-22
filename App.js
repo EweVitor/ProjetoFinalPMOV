@@ -12,7 +12,7 @@ function loginScreen(){
 
   return(
     <View style={styles.container}>
-      <Text>Tela de login   </Text>
+      <Text>Tela de login</Text>
 
       <Button title="Sair" onPress={() =>{
         navigation.replace('homeTabNavigator')
@@ -98,17 +98,15 @@ function homeTabNavigator(){
   </Tab.Navigator>
   );
 }
-  
 
 export default function App() {
+  
   return (
     <NavigationContainer>
-
       <Stack.Navigator>
         <Stack.Screen name="login" component={loginScreen}></Stack.Screen>
         <Stack.Screen name="homeTabNavigator" component={homeTabNavigator} options={{headerShown :false}}></Stack.Screen>
       </Stack.Navigator>
-       
     </NavigationContainer>
   );
 }
