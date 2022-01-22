@@ -1,13 +1,32 @@
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
+import React , {useState, useEffect}from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-web';
+import { Button, FlatList, ScrollView } from 'react-native-web';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getLivros } from './service/livrosService';
+
+
+export default function App() {
+  
+  return (
+    
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="login" component={loginScreen}></Stack.Screen>
+        <Stack.Screen name="homeTabNavigator" component={homeTabNavigator} options={{headerShown :false}}></Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
+  
+    
+  );
+}
 
 
 function loginScreen(){
+  
+
   const navigation = useNavigation();
 
   return(
@@ -58,17 +77,55 @@ function infoScreen(){
   return(
     <View style={styles.container}>
       <Text>tela de informação</Text>
-    
+      <View style={styles.container}>
+
+ 
+
+</View>
     </View>
   );
 }//materias ====================
 function materiasScreen(){
+
+  const [data, setData] = useState([]);
+  const Item =({title, releaseYear})=> (
+      <View style={styles.item}>
+        <Text>{title}</Text>
+        <Text>{releaseYear}</Text>
+      </View>
+
+  );
+
+  const getLivrosFromService = async ()=>{
+    getLivros().then(result => {
+      setData(result);
+      
+    }).catch(error =>{
+      consol.log(error)
+
+    })
+
+  }
+  useEffect(()=> {
+    getLivrosFromService();
+
+  },[]);
+
   const navigation = useNavigation();
 
   return(
     <View style={styles.materiasStyles}>
       <Text style={styles.title2}>Livros sobre educação financeira</Text>
       <Text style={styles.title3}>Abaixo temos alguns livros para estudo sobre a educação finaceira</Text>
+              
+      <FlatList style={styles.filmes}
+          data={data}
+          renderItem={({item}) =>(
+            <Item title={item.title} releaseYear={item.releaseYear}></Item>
+
+          )} 
+        >
+      </FlatList>
     </View>
   );
 }//Materias ==================
@@ -110,18 +167,6 @@ function homeTabNavigator(){
   );
 }
 
-export default function App() {
-  
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="login" component={loginScreen}></Stack.Screen>
-      
-        <Stack.Screen name="homeTabNavigator" component={homeTabNavigator} options={{headerShown :false}}></Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -129,6 +174,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  filmes:{
+    marginTop:10,
+
   },
   title2:{
     alignContent:'center',
@@ -146,6 +196,12 @@ const styles = StyleSheet.create({
   },
   materiasStyles:{
     margin:10,
+
+  },
+  item:{
+    backgroundColor:'red',
+    padding:5,
+    margin :5,
 
   }
 });
