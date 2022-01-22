@@ -61,7 +61,17 @@ function infoScreen(){
     
     </View>
   );
-}
+}//materias ====================
+function materiasScreen(){
+  const navigation = useNavigation();
+
+  return(
+    <View style={styles.materiasStyles}>
+      <Text style={styles.title2}>Livros sobre educação financeira</Text>
+      <Text style={styles.title3}>Abaixo temos alguns livros para estudo sobre a educação finaceira</Text>
+    </View>
+  );
+}//Materias ==================
 const ContateStackNavigator = createNativeStackNavigator();
 function ContateStackNavigatorComponente(){
   return(
@@ -94,6 +104,7 @@ function homeTabNavigator(){
     })}>
 
     <Tab.Screen name="home" component={homeScreen}></Tab.Screen>
+    <Tab.Screen name="Materias" component={materiasScreen}></Tab.Screen>
     <Tab.Screen name="Sobre nois" component={ContateStackNavigatorComponente} options={{headerShown :false}}></Tab.Screen>
   </Tab.Navigator>
   );
@@ -105,6 +116,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="login" component={loginScreen}></Stack.Screen>
+      
         <Stack.Screen name="homeTabNavigator" component={homeTabNavigator} options={{headerShown :false}}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
@@ -118,4 +130,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  title2:{
+    alignContent:'center',
+    fontSize:25,
+    margin:15,
+    backgroundColor:'red',
+    padding:10,
+    borderRadius:20.0
+
+  },
+  title3:{
+    fontSize:15,
+    margin: 10,
+
+  },
+  materiasStyles:{
+    margin:10,
+
+  }
 });
